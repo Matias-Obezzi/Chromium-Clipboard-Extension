@@ -1,0 +1,52 @@
+{
+    "name":"CLIPBOARD",
+    "short_name": "CLIP",
+    "description": "Access to your clipboard easily",
+    "author": "Matias Obezzi",
+    "version": "1.0",
+    "manifest_version": 2,
+    "icons": {
+        "16": "media/icon.png",
+        "48": "media/icon.png",
+        "128": "media/icon.png"
+    },
+    "browser_action":{
+        "default_icon": "media/icon.png",
+        "default_popup": "popup.html"
+    },
+    "background":{
+        "scripts": [
+            "jquery.min.js",
+            "background.js"
+        ]
+    },
+    "permissions":[
+        "background",
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>",
+        "activeTab",
+        "storage"
+    ],
+    "commands":{
+        "copy":{
+            "suggested_key": {
+                "default": "Ctrl+Shift+C",
+                "mac": "Command+C"
+            },
+            "description": "Copy on the clipboard",
+            "shortcut": "Ctrl+Shift+C",
+            "global": true
+        },
+        "clear":{
+            "suggested_key": {
+                "default": "Ctrl+Shift+L",
+                "mac": "Command+L"
+            },
+            "description": "Clear clipboard",
+            "shortcut": "Ctrl+Shift+L",
+            "global": true
+        }
+    }
+}
