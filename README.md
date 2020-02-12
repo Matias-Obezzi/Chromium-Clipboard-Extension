@@ -1,4 +1,4 @@
-<b>Chromium Extension</b>
+<b>Clipboard - Chromium Extension</b>
 -----------------------------------------------------------------------------------------------------------------------------------
 <div class="card-body">
   <h4 class="card-title">English</h4>
