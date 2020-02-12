@@ -2,6 +2,9 @@ $("#content").css("margin-top", $("#menu").height() + 10);
 
 var content = [];
 var lang = "es";
+var tooltip;
+var button;
+var popperInstance = null;
 main();
 
 function dateString(timeBase){
@@ -47,7 +50,7 @@ function dateString(timeBase){
 
 function generateCard(text, timeBase){
     time = dateString(timeBase);
-    return '<div class="card mx-auto m-2 my-4 p-2 text-center w-100 blockquote mb-0"><div class="d-flex justify-content-end"><a id="copy" href="#" class=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M17,9H7V7H17M17,13H7V11H17M14,17H7V15H14M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z" /></svg></a></div><p>' + text + '</p><footer class="blockquote-footer text-center w-75 mx-auto">' + time + '</footer></div>';
+    return '<div class="card mx-auto m-2 my-4 p-2 text-center w-100 blockquote mb-0"><div class="d-flex justify-content-end"><a id="copy" href="#" class=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M17,9H7V7H17M17,13H7V11H17M14,17H7V15H14M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z" /></svg></a><div id="tooltip" role="tooltip">Copy<div id="arrow" data-popper-arrow></div></div></div><p>' + text + '</p><footer class="blockquote-footer text-center w-75 mx-auto">' + time + '</footer></div>';
 }
 
 function copyToClipboard(text, el) {
@@ -85,6 +88,28 @@ function setCopys(){
     for(var i = content.length-1; i>=0; i--){
         $("#content").append(generateCard(JSON.parse(content[i]).content, JSON.parse(content[i]).time));
     }
+}
+
+function create() {
+    button=copy;
+    popperInstance = Popper.createPopper(button, tooltip, {});
+}
+
+function destroy() {
+    if (popperInstance) {
+        popperInstance.destroy();
+        popperInstance = null;
+    }
+}
+
+function show() {
+    tooltip.setAttribute('data-show', '');
+    create();
+}
+
+function hide() {
+    tooltip.removeAttribute('data-show');
+    destroy();
 }
 
 function main(){
@@ -132,6 +157,8 @@ $("a").click(function(){
 
 $(document).ready ( function () {
     $(document).on ("click", "#copy", function () {
+        var el = $(this);
+        var text = el.parent().parent().find("p").html();
         var ant = $(".copied");
         if(undefined !== ant){
             ant.removeClass('copied');
@@ -141,18 +168,26 @@ $(document).ready ( function () {
             ant.find("svg").css("fill", "black");
             ant.find("footer").css("color", "gray");
         }
-        var text = $(this).parent().parent().find("p").html();
-        var el = $(this);
         copyToClipboard(text, el);
         $(this).parent().parent().addClass("copied");
-        $(this).parent().parent().css("transition", "1s");
-        $(this).parent().parent().find("p").css("transition", "1s");
-        $(this).parent().parent().find("svg").css("transition", "0s");
-        $(this).parent().parent().find("footer").css("transition", "1s");
-        $(this).parent().parent().css("background-color", "green");
-        $(this).parent().parent().find("p").css("color", "white");
-        $(this).parent().parent().find("svg").css("fill", "white");
-        $(this).parent().parent().find("p").css("color", "white");
-        $(this).parent().parent().find("footer").css("color", "white");
+        $(this).parent().parent().css({"transition": "1s","background-color": "green", "color": "white"});
+        $(this).parent().parent().find("p").css({"transition": "1s","color": "white", "color": "white"});
+        $(this).parent().parent().find("svg").css({"transition": "0s", "fill": "white"});
+        $(this).parent().parent().find("footer").css({"transition": "1s", "color": "white"});
+        if(null!==popperInstance){
+            hide();
+        }    
+        tooltip = el.parent().parent().find("#tooltip")[0];
+        button = el;
+        show(el);
     });
+});
+
+chrome.commands.onCommand.addListener(function(command){
+    if(command === "clear"){
+        chrome.storage.local.set({'clipboard': ""}, function(){
+            content = [];
+        });
+        $("#content").html("");
+    }
 });

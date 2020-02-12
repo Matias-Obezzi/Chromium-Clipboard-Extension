@@ -43,3 +43,31 @@ footer>div>span>a:hover{
     text-decoration: none;
     color: gray;
 }
+
+#tooltip {
+    background: #333;
+    color: white;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    display: none;
+    position: absolute;
+    transform: translateX(-70%);
+}
+
+#tooltip[data-show] {
+    display: block;
+}
+
+#arrow, #arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+}
+
+#arrow::before {
+    content: '';
+    transform: translateY(-160%) translateX(320%) rotate(45deg);
+    background: #333;
+}
