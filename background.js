@@ -30,7 +30,7 @@ chrome.commands.onCommand.addListener(function(command){
                         textNotification = "Added";
                     }
                 }else{
-                    textNotification = cont-contBase;
+                    textNotification = "A";
                 }
                 notification(textNotification);
             }
@@ -47,7 +47,7 @@ chrome.commands.onCommand.addListener(function(command){
                     textNotification = "Cleared";
                 }
             }else{
-                textNotification = 0;
+                textNotification = lang=="es"?"B":"C";
             }
             notification(textNotification);
         });

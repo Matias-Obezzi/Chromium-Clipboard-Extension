@@ -14,6 +14,7 @@ chrome.commands.onCommand.addListener(function(command){
             content = [];
         });
         $("#content").html("");
+        $("#menu").removeClass("shadow");
     }
 });
 
@@ -21,7 +22,7 @@ main();
 
 function generateCard(text, timeBase){
     time = dateString(timeBase);
-    return '<div class="card mx-auto m-2 my-4 p-2 text-center w-100 blockquote mb-0"><div class="d-flex justify-content-end"><a id="copy" href="#" class="icon-clipboard"></a><div id="tooltip" role="tooltip">Copy<div id="arrow" data-popper-arrow></div></div></div><p>' + text + '</p><footer class="blockquote-footer text-center w-75 mx-auto">' + time + '</footer></div>';
+    return '<div class="card mx-auto m-2 my-4 p-2 text-center w-100 blockquote mb-0 shadow"><div class="d-flex justify-content-end"><a id="copy" href="#" class="icon-clipboard"></a></div><p>' + text + '</p><footer class="blockquote-footer text-center w-75 mx-auto">' + time + '</footer></div>';
 }
 
 function dateString(timeBase){
@@ -115,28 +116,6 @@ function setNotif(){
     }
 }
 
-function create() {
-    button=copy;
-    popperInstance = Popper.createPopper(button, tooltip, {});
-}
-
-function destroy() {
-    if (popperInstance) {
-        popperInstance.destroy();
-        popperInstance = null;
-    }
-}
-
-function show() {
-    tooltip.setAttribute('data-show', '');
-    create();
-}
-
-function hide() {
-    tooltip.removeAttribute('data-show');
-    destroy();
-}
-
 function main(){
     chrome.storage.local.get('lang', function(data){
         if(undefined === data.lang){
@@ -154,6 +133,9 @@ function main(){
             console.log("empty");
         }else{
             content = clip.clipboard;
+            if(content.length>0){ 
+                $("#menu").addClass("shadow");
+            }
             setCopys();
         }
     });
@@ -175,6 +157,7 @@ $("a").click(function(){
             content = [];
         });
         $("#content").html("");
+        $("#menu").removeClass("shadow");
     }else if(opc==="es" || opc==="en"){
         chrome.storage.local.set({'lang': opc}, function(data){
             lang = opc;
@@ -208,12 +191,6 @@ $(document).ready ( function () {
         $(this).parent().parent().find("p").css({"transition": "1s","color": "white", "color": "white"});
         $(this).parent().parent().find("#copy").css({"transition": "0s", "color": "white"});
         $(this).parent().parent().find("footer").css({"transition": "1s", "color": "white"});
-        if(null!==popperInstance){
-            hide();
-        }    
-        tooltip = el.parent().parent().find("#tooltip")[0];
-        button = el;
-        show();
     });
 });
 

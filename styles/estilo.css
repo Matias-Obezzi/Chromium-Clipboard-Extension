@@ -9,17 +9,11 @@
     font-family: 40px;
     scroll-behavior: smooth;
     list-style-type: none;
-    cursor:url(../media/normal.cur), auto;
-}
-
-a:hover, nav>button:hover{
-    cursor:url(../media/hover.cur), auto;
 }
 
 svg:hover{
     text-decoration: none;
     fill: gray;
-    cursor:url(../media/hover.cur), auto;
 }
 
 html, nav, footer{
@@ -53,11 +47,11 @@ footer>div>span>a:hover, .link:hover{
     border-radius: 4px;
     display: none;
     position: absolute;
-    transform: translateX(-70%);
+    transform: translateY(-160%) translateX(320%) rotate(45deg);
 }
 
 #tooltip[data-show] {
-    display: block;
+        display: block;
 }
 
 #arrow, #arrow::before {
