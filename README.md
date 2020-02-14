@@ -3,7 +3,7 @@
 <div class="card-body">
   <h4 class="card-title">English</h4>
   <p class="card-text">
-    It is an application that gives you access to a virtual clipboard in Chromium.
+    It is an extension that gives you access to a virtual clipboard in Chromium.
     Make a copy to the clipboard with the Ctrl+Shift+C command and delete all copies with the Ctrl+Shift+L command.
   </p>
   <p class="card-text">
