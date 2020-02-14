@@ -27,7 +27,8 @@
         "https://*/*",
         "<all_urls>",
         "activeTab",
-        "storage"
+        "storage",
+        "notifications"
     ],
     "commands":{
         "copy":{

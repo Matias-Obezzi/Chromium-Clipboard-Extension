@@ -12,7 +12,7 @@
     cursor:url(../media/normal.cur), auto;
 }
 
-a:hover{
+a:hover, nav>button:hover{
     cursor:url(../media/hover.cur), auto;
 }
 
@@ -36,10 +36,10 @@ footer>div>a:hover{
     text-decoration: none;
     color: white;
 }
-footer>div>span>a{
+footer>div>span>a, .link{
     color: white;
 }
-footer>div>span>a:hover{
+footer>div>span>a:hover, .link:hover{
     text-decoration: none;
     color: gray;
 }
@@ -70,4 +70,8 @@ footer>div>span>a:hover{
     content: '';
     transform: translateY(-160%) translateX(320%) rotate(45deg);
     background: #333;
+}
+
+#copy{
+    color:black;
 }
