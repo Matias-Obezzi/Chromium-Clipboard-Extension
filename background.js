@@ -24,11 +24,7 @@ chrome.commands.onCommand.addListener(function(command){
                 });
                 cont+=1;
                 if(notif){
-                    if(lang==="es"){
-                        textNotification = "Añadido";
-                    }else{
-                        textNotification = "Added";
-                    }
+                    textNotification = lang=="es"?"Añadido":"Added";
                 }else{
                     textNotification = "A";
                 }
@@ -41,11 +37,7 @@ chrome.commands.onCommand.addListener(function(command){
             cont = 0;
             contBase = 0;
             if(notif){
-                if(lang==="es"){
-                    textNotification = "Borrado";
-                }else{
-                    textNotification = "Cleared";
-                }
+                textNotification = lang=="es"?"Borrado":"Cleared";
             }else{
                 textNotification = lang=="es"?"B":"C";
             }
